@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "type": "Botcore deployment",
-  "itemDisplayName": "Botcore deploymen",
-  "description": "This template provisions Function app, Web app bot and Cognitive services necessary for the BotCore deployment,
-  "summary": "Botcore deploymen",
-  "dateUpdated": "November-8, 2018"
+  "type": "BotCore deployment",
+  "itemDisplayName": "BotCore deployment",
+  "description": "This template provisions Function app, Web app bot and Cognitive services necessary for the BotCore deployment",
+  "summary": "BotCore deployment",
+  "dateUpdated": "2018-11-08"
 }
