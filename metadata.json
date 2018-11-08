@@ -1,8 +1,9 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
   "type": "BotCore deployment",
   "itemDisplayName": "BotCore deployment",
   "description": "This template provisions Function app, Web app bot and Cognitive services necessary for the BotCore deployment",
   "summary": "BotCore deployment",
+  "githubUsername": "kothakapu",
   "dateUpdated": "2018-11-08"
 }
