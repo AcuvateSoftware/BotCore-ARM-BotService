@@ -1,0 +1,7 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "type": "Botcore deployment",
+  "itemDisplayName": "Provision the necessary resources for the deployment of Botcore into Azure",
+  "description": "This template provisions Function app, Web app bot and Cognitive services necessary for the BotCore deployment.
+  "dateUpdated": "November-8, 2018"
+}
