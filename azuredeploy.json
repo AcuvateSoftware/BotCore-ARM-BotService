@@ -1,6 +1,6 @@
 { 
     "apiVersion": "2018-02-01",
-    "name": "pid-a3aa5d37-04e6-44fe-a72a-5f823188b6d3"
+    "name": "pid-a3aa5d37-04e6-44fe-a72a-5f823188b6d3",
     "type": "Microsoft.Resources/deployments",
     "properties": {
         "mode": "Incremental",
