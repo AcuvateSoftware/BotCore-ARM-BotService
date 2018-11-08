@@ -1,4 +1,4 @@
-# BotCore-ARM-BotService
+# Provision a web app with a SQL Database
 ARM template for BotService 
 Template to provision Function app, Web app bot& Cognitive services for Botcore deployment.
 
