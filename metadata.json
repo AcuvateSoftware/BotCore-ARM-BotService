@@ -1,9 +1,9 @@
 {
   "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
-  "type": "BotCore deployment",
-  "itemDisplayName": "BotCore deployment",
-  "description": "This template provisions Function app, Web app bot and Cognitive services necessary for the BotCore deployment",
-  "summary": "BotCore deployment",
-  "githubUsername": "kothakapu",
-  "dateUpdated": "2018-11-08"
+  "type": "QuickStart",
+  "itemDisplayName": "Provision a Web App with a SQL Database",
+  "description": "This template provisions a Web App, a SQL Database, AutoScale settings, Alert rules, and App Insights. It configures a connection string in the web app for the database.",
+  "summary": "Provision a Web App with a SQL Database",
+  "githubUsername": "bmoore-msft",
+  "dateUpdated": "2016-09-30"
 }
