@@ -5,11 +5,11 @@
     "Environment": {
       "type": "string",
       "defaultValue": "prod",
-      "metadata": {"description": "Enter the environment of the bot"}
+      "metadata": {"description": "Enter the environment of the bot."}
     },
     "Bot- Id": {
       "type": "string",
-      "metadata": { "description": "Enter the preferred id for the bot" }
+      "metadata": { "description": "Enter the preferred id for the bot." }
     },
     "Location": {
       "type": "string",
@@ -42,7 +42,7 @@
 			"Korea Central",
 			"France South",
 			"France Central" ],
-      "metadata": { "description": "Choose the preferred bot location" }
+      "metadata": { "description": "Choose the preferred bot location." }
     },
     "SKU": {
       "type": "string",
@@ -55,7 +55,7 @@
         "sdk",
         "bot"
       ],
-      "metadata": { "description": "Enter the SKU kind of the bot" }
+      "metadata": { "description": "Enter the SKU kind of the bot." }
     },
     "Web App- Name": {
       "type": "string",
@@ -72,11 +72,11 @@
     "Zip url": {
       "type": "string",
       "defaultValue": "",
-	  "metadata": { "description": "Enter the zip url" }
+	  "metadata": { "description": "Enter the zip url." }
     },
     "Proactive zip url": {
       "type": "string",
-		"metadata": { "description": "Enter the Proactive zip url" }
+		"metadata": { "description": "Enter the Proactive zip url." }
     },
     "Endpoint": {
       "type": "string",
@@ -120,7 +120,7 @@
         "LUIS",
         "Bing.Speech"
       ],
-      "metadata": { "description": "Choose the type of cognitive service" }
+      "metadata": { "description": "Choose the type of cognitive service." }
     },
     "Cognitive service- Sku": {
       "type": "string",
