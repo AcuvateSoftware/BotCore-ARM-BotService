@@ -1,0 +1,393 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Environment": {
+      "type": "string",
+      "defaultValue": "prod",
+      "metadata": {"description": "Enter the environment of the bot"}
+    },
+    "Bot- Id": {
+      "type": "string",
+      "metadata": { "description": "Enter the preferred id for the bot" }
+    },
+    "Location": {
+      "type": "string",
+		"allowedValues": [ "Central US", 
+			"North Europe",
+			"West Europe",
+			"Southeast Asia",
+			"East Asia",
+			"West US",
+			"East US",
+			"Japan West",
+			"Japan East",
+			"Japan West",
+			"East US 2",
+			"North Central US",
+			"South Central US",
+			"Brazil South",
+			"Australia East",
+			"Australia Southeast",
+			"Central India",
+			"West India",
+			"South India",
+			"Canada Central",
+			"Canada East",
+			"West Central US",
+			"West US 2",
+			"UK West",
+			"UK South",
+			"Korea South",
+			"Korea Central",
+			"France South",
+			"France Central" ],
+      "metadata": { "description": "Choose the preferred bot location" }
+    },
+    "SKU": {
+      "type": "string",
+      "allowedValues": [ "F0", "S1" ],
+      "metadata": { "description": "Describes the pricing tier and capacity of the bot service." }
+    },
+    "Kind": {
+      "type": "string",
+      "allowedValues": [
+        "sdk",
+        "bot"
+      ],
+      "metadata": { "description": "Enter the SKU kind of the bot" }
+    },
+    "Web App- Name": {
+      "type": "string",
+      "metadata": { "description": "This determines the endpoint of the bot." }
+    },
+    "App id": {
+      "type": "string",
+      "metadata": { "description": "Enter a valid GUID as App id." }
+    },
+    "App secret": {
+      "type": "string",
+      "metadata": { "description": "Provide an App secret for security implementation." }
+    },
+    "Zip url": {
+      "type": "string",
+      "defaultValue": "",
+	  "metadata": { "description": "Enter the zip url" }
+    },
+    "Proactive zip url": {
+      "type": "string",
+		"metadata": { "description": "Enter the Proactive zip url" }
+    },
+    "Endpoint": {
+      "type": "string",
+      "metadata": { "description": "Enter the bot end point. eg: https://{webapp name}.azurewebsites.net/api/messages" },
+    },
+    "LUIS api- Location": {
+      "type": "string",
+      "allowedValues": [
+        "East Australia",
+        "West Europe",
+		"West US"
+      ],
+	  "metadata": { "description": "Choose the preferred LUIS app location." }
+    },
+    "Bot file- Encryption key": {
+      "type": "string",
+      "defaultValue": "",
+	  "metadata": { "description": "Key to encrypt the bot files." }
+    },
+    "Cognitive service- Name": {
+      "type": "string",
+      "metadata": { "description": "Enter the preferred name for cognitive service." }
+    },
+    "Cognitive service- Location": {
+      "type": "string",
+		"allowedValues": [
+		"West US",
+			"West US 2",
+			"West Europe",
+			"North Europe",
+			"Australia East",
+			"Brazil South",
+			"Southeast Asia",
+			"East Asia"
+      ],
+      "metadata": { "description": "Choose the preferred location for cognitive services." }
+    },
+    "Cognitive service- Type": {
+      "type": "string",
+      "allowedValues": [
+        "LUIS",
+        "Bing.Speech"
+      ],
+      "metadata": { "description": "Choose the type of cognitive service" }
+    },
+    "Cognitive service- Sku": {
+      "type": "string",
+		"allowedValues": [
+        "S0"
+      ],
+      "metadata": { "description": "Describes the pricing tier and capacity of the service." }
+    },
+    "Resource group- Name": {
+      "type": "string",
+      "metadata": { "description": "Please re- enter the name of resource group here." }
+    },
+    "Function app- Name": {
+      "type": "string",
+      "metadata": { "description": "Enter the name of the funtion app." }
+    },
+    "Storage account- Name": {
+      "type": "string",
+      "metadata": { "description": "Enter the name of the storage account." }
+    },
+    "Function app- Location": {
+      "type": "string",
+      "metadata": { "description": "Enter the prefered location of the function app." }
+    },
+    "Subscription id": {
+      "type": "string",
+      "metadata": { "description": "Enter the subscription id of the resource group." }
+    }
+  },
+  "variables": {
+    "myWorkerSize": 0,
+    "proactiveFunctionName": "[concat(parameters('Web App- Name'), '-function')]",
+    "insightsName": "[concat(parameters('Bot- Id'), substring(uniqueString(resourceGroup().id), 0, 6))]",
+    "config": {
+      "scratch": {
+        "stateEndpoint": "https://intercom-api-scratch.azurewebsites.net",
+        "azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.scratch.botframework.com/",
+        "openIdMetadata": "https://intercom-api-ppe.azurewebsites.net/v1/.well-known/openidconfiguration"
+      },
+      "ppe": {
+        "stateEndpoint": "https://intercom-api-ppe.azurewebsites.net",
+        "azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.ppe.botframework.com/",
+        "openIdMetadata": "https://intercom-api-ppe.azurewebsites.net/v1/.well-known/openidconfiguration"
+      },
+      "prod": {
+        "stateEndpoint": "",
+        "azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.botframework.com/",
+        "openIdMetadata": ""
+      },
+      "usgovppe": {
+        "stateEndpoint": "",
+        "azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.ppe.botframework.azure.us/",
+        "openIdMetadata": "https://api.ppe.botframework.azure.us/v1/.well-known/openidconfigurationn"
+      },
+      "usgovprd": {
+        "stateEndpoint": "",
+        "azureWebJobsBotFrameworkDirectLineEndpoint": "https://directline.botframework.azure.us/",
+        "openIdMetadata": "https://api.botframework.azure.us/v1/.well-known/openidconfiguration"
+      }
+    },
+    "botAppKinds": {
+      "function": "functionapp",
+      "sdk": "app",
+      "designer": "app",
+      "bot": ""
+    },
+    "botAppKind": "[variables('botAppKinds')[parameters('kind')]]",
+    "currentConfig": "[variables('config')[toLower(parameters('Environment'))]]",
+    "siteHost": "[concat(parameters('Web App- Name'), '.azurewebsites.net')]",
+    "botEndpointConfig": {
+      "bot": "[parameters('endpoint')]",
+      "sdk": "[concat('https://', variables('siteHost'), '/api/messages')]",
+      "designer": "[concat('https://', variables('siteHost'), '/api/messages')]",
+      "function": "[concat('https://', variables('siteHost'), '/api/messages?code=', 'NYI')]"
+    },
+    "botEndpoint": "[variables('botEndpointConfig')[parameters('kind')]]",
+    "luisApiName": "",
+    "luisApiResId": "[resourceId('Microsoft.CognitiveServices/accounts/', variables('luisApiName'))]"
+  },
+  "resources": [
+    {
+      "name": "[if(equals('', variables('luisApiName')), 'nosuch', variables('luisApiName'))]",
+      "apiVersion": "2017-04-18",
+      "condition": "[not(equals(variables('luisApiName'), ''))]",
+      "type": "Microsoft.CognitiveServices/accounts",
+      "location": "[parameters('LUIS api- Location')]",
+      "sku": {
+        "name": "F0"
+      },
+      "kind": "LUIS",
+      "properties": {}
+    },
+    {
+      "name": "[parameters('Web App- Name')]",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2015-08-01",
+      "condition": "[not(equals(parameters('Zip url'), ''))]",
+      "location": "[parameters('location')]",
+      "kind": "[variables('botAppKind')]",
+      "properties": {
+        "name": "[parameters('Web App- Name')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "botFilePath",
+              "value": "[concat('./', parameters('Bot- Id'), '.bot')]"
+            },
+            {
+              "name": "botFileSecret",
+              "value": "[parameters('Bot file- Encryption key')]"
+            }
+          ],
+          "cors": {
+            "allowedOrigins": [
+              "https://botservice.hosting.portal.azure.net",
+              "https://hosting.onecloud.azure-test.net/"
+            ]
+          }
+        }
+      },
+      "resources": [
+        {
+          "name": "MSDeploy",
+          "type": "Extensions",
+          "apiVersion": "2015-02-01",
+          "condition": "[not(equals(parameters('Zip url'), ''))]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', parameters('Web App- Name'))]"
+          ],
+          "properties": {
+            "packageUri": "[parameters('Zip url')]",
+            "dbType": "None",
+            "connectionString": "",
+            "setParameters": {
+              "IIS Web Application Name": "[parameters('Web App- Name')]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2016-03-01",
+      "type": "Microsoft.Web/sites",
+      "condition": "[not(equals(parameters('Proactive zip url'), ''))]",
+      "name": "[variables('proactiveFunctionName')]",
+      "location": "[parameters('location')]",
+      "kind": "functionapp",
+      "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[toLower(variables('proactiveFunctionName'))]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "AzureWebJobsBotFrameworkDirectLineEndpoint",
+              "value": "[variables('currentConfig').azureWebJobsBotFrameworkDirectLineEndpoint]"
+            }
+          ]
+        }
+      },
+      "resources": [
+        {
+          "name": "MSDeploy",
+          "type": "Extensions",
+          "apiVersion": "2015-02-01",
+          "condition": "[not(equals(parameters('Proactive zip url'), ''))]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', variables('proactiveFunctionName'))]"
+          ],
+          "properties": {
+            "packageUri": "[parameters('Proactive zip url')]"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2017-12-01",
+      "type": "Microsoft.BotService/botServices",
+      "name": "[parameters('Bot- Id')]",
+      "location": "global",
+      "kind": "[parameters('kind')]",
+      "sku": {
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "name": "[parameters('Bot- Id')]",
+        "displayName": "[parameters('Bot- Id')]",
+        "endpoint": "[variables('botEndpoint')]",
+        "msaAppId": "[parameters('App id')]",
+        "publishingCredentials": "[list(concat(resourceId('Microsoft.Web/Sites', parameters('Web App- Name')), '/config/publishingcredentials'), '2018-02-01')]",
+        "parameters": "[union(deployment().properties.parameters, json(concat('{\"tenant\":{\"value\":\"', subscription().tenantId, '\"}}')), json(concat('{\"stateStorage\":{\"value\":\"DefaultEndpointsProtocol=https;AccountName=',';\"}}')))]",
+        "allSettings": {
+          "WEBSITE_NODE_DEFAULT_VERSION": "8.9.4",
+          "BotEnv": "[parameters('Environment')]",
+          "BotId": "[parameters('Bot- Id')]",
+          "MicrosoftAppId": "[parameters('App id')]",
+          "MicrosoftAppPassword": "[parameters('App secret')]",
+          "BotStateEndpoint": "[variables('currentConfig').stateEndpoint]",
+          "BotOpenIdMetadata": "[variables('currentConfig').openIdMetadata]",
+          "UseTableStorageForConversationState": "true",
+          "botFilePath": "[concat('./', parameters('Bot- Id'), '.bot')]",
+          "botFileSecret": "[parameters('Bot file- Encryption key')]",
+          "LuisAPIKey": "374ee135421e45db8420cbec05e02bd9",
+          "LuisAppId": "dab3bae8-e0f4-4ce2-ae5e-48acc5962edd",
+          "LuisAPIHostName": "westus.api.cognitive.microsoft.com"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites/', parameters('Web App- Name'))]",
+        "MSDeploy"
+      ]
+    },
+    {
+      "apiVersion": "2017-04-18",
+      "name": "[parameters('Cognitive service- Name')]",
+      "location": "[parameters('Cognitive service- Location')]",
+      "type": "Microsoft.CognitiveServices/accounts",
+      "kind": "[parameters('Cognitive service- Type')]",
+      "sku": {
+        "name": "[parameters('Cognitive service- Sku')]"
+      },
+      "properties": {}
+    },
+    {
+      "apiVersion": "2016-03-01",
+      "name": "[parameters('Function app- Name')]",
+      "type": "Microsoft.Web/sites",
+      "properties": {
+        "name": "[parameters('Function app- Name')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_WORKER_RUNTIME",
+              "value": "dotnet"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage account- Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource group- Name'),'Microsoft.Storage/storageAccounts', parameters('Storage account- Name')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~2"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage account- Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource group- Name'),'Microsoft.Storage/storageAccounts', parameters('Storage account- Name')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[concat(toLower(parameters('Storage account- Name')), '8875')]"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "8.11.1"
+            }
+          ]
+        },
+        "clientAffinityEnabled": false,
+        "reserved": false
+      },
+      "location": "[parameters('Function app- Location')]",
+      "kind": "functionapp"
+    }
+  ]
+}
