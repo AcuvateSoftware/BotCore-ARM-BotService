@@ -1,9 +1,7 @@
 {
-  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
-  "type": "QuickStart",
   "itemDisplayName": "BotCore Deployment",
   "description": "Bot service",
   "summary": "Deployment of BotCore bot service",
-  "githubUsername": "kothakapu",
+  "githubUsername": "AcuvateSoftware",
   "dateUpdated": "2018-11-08"
 }
