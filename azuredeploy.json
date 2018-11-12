@@ -9,7 +9,7 @@
     },
     "Bot- Id": {
       "type": "string",
-      "defaultValue": "ACU-BOT-ABS-Dev",
+      "defaultValue": "ACU-BOT-ABS-DEV",
       "metadata": { "description": "Please enter the preferred id for the bot" }
     },
     "Location": {
@@ -105,7 +105,7 @@
     },
     "Cognitive service- Name": {
       "type": "string",
-      "defaultValue": "ACU-BOT-CS-Dev",
+      "defaultValue": "ACU-BOT-CS-DEV",
       "metadata": { "description": "Enter the preferred name for cognitive service." }
     },
     "Cognitive service- Location": {
@@ -144,7 +144,7 @@
     },
     "Function app- Name": {
       "type": "string",
-      "defaultValue": "ACU-BOT-AFA-Dev",
+      "defaultValue": "ACU-BOT-AFA-DEV",
       "metadata": { "description": "Please enter the name of the funtion app." }
     },
     "Storage account- Name": {
