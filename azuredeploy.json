@@ -220,7 +220,7 @@
           ]
         }
       }
-  },
+    },
     {
       "apiVersion": "2017-12-01",
       "type": "Microsoft.BotService/botServices",
@@ -306,6 +306,19 @@
       },
       "location": "[parameters('Function app- Location')]",
       "kind": "functionapp"
+    },
+    {
+      "apiVersion": "2018-02-01",
+      "name": "pid-a3aa5d37-04e6-44fe-a72a-5f823188b6d3",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": []
+        }
+      }
     }
   ]
 }
