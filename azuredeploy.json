@@ -425,6 +425,19 @@
       },
       "location": "[parameters('Function app- Location')]",
       "kind": "functionapp"
+    },
+    {
+      "apiVersion": "2018-02-01",
+      "name": "pid-a9d60af4-e8f2-4928-b6d4-64445afc7bd3",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": []
+        }
+      }
     }
   ]
 }
