@@ -69,6 +69,7 @@
     },
     "App secret": {
       "type": "string",
+      "defaultValue": "",
       "metadata": { "description": "Please enter an App secret for security implementation of BotCore." }
     },
     "Zip url": {
@@ -78,7 +79,8 @@
     },
     "Proactive zip url": {
       "type": "string",
-		"metadata": { "description": "Please enter the Proactive zip url" }
+      "defaultValue": "",
+      "metadata": { "description": "Please enter the Proactive zip url" }
     },
     "Endpoint": {
       "type": "string",
