@@ -9,6 +9,7 @@
     },
     "Bot- Id": {
       "type": "string",
+      "defaultValue": "ACU-BOT-ABS-Dev",
       "metadata": { "description": "Please enter the preferred id for the bot" }
     },
     "Location": {
@@ -49,6 +50,7 @@
     "SKU": {
       "type": "string",
       "allowedValues": [ "F0", "S1" ],
+      "defaultValue": "S1",
       "metadata": { "description": "Select the type of the BotCore service" }
     },
     "Kind": {
@@ -57,6 +59,7 @@
         "sdk",
         "bot"
       ],
+      "defaultValue": "sdk",
       "metadata": { "description": "Select the SKU kind of BotCore" }
     },
     "Web App- Name": {
