@@ -5,16 +5,16 @@
     "Environment": {
       "type": "string",
       "defaultValue": "prod",
-      "metadata": { "description": "Enter the environment of the bot" }
+      "metadata": {"description": "Please enter the environment of the bot"}
     },
     "Bot- Id": {
       "type": "string",
-      "metadata": { "description": "Enter the preferred id for the bot" }
+      "metadata": { "description": "Please enter the preferred id for the bot" }
     },
     "Location": {
       "type": "string",
       "allowedValues": [
-        "Central Europe",
+        "Central US",
         "North Europe",
         "West Europe",
         "Southeast Asia",
@@ -23,6 +23,7 @@
         "East US",
         "Japan West",
         "Japan East",
+        "Japan West",
         "East US 2",
         "North Central US",
         "South Central US",
@@ -43,12 +44,12 @@
         "France South",
         "France Central"
       ],
-      "metadata": { "description": "Enter the preferred bot location" }
+      "metadata": { "description": "Choose the preferred location for BotCore deployment" }
     },
     "SKU": {
       "type": "string",
       "allowedValues": [ "F0", "S1" ],
-      "metadata": { "description": "Describes the pricing tier and capacity of the bot service." }
+      "metadata": { "description": "Select the type of the BotCore service" }
     },
     "Kind": {
       "type": "string",
@@ -56,48 +57,79 @@
         "sdk",
         "bot"
       ],
-      "metadata": { "description": "Enter the SKU kind of the bot" }
+      "metadata": { "description": "Select the SKU kind of BotCore" }
     },
     "Web App- Name": {
       "type": "string",
-      "metadata": { "description": "This determines the endpoint of the bot." }
+      "metadata": { "description": "Please enter the name of BotCore runtime web app." }
     },
     "App id": {
       "type": "string",
-      "metadata": { "description": "Enter a valid GUID as App id" }
+      "metadata": { "description": "Enter a valid GUID as App id for BotCore service." }
+    },
+    "App secret": {
+      "type": "string",
+      "metadata": { "description": "Please enter an App secret for security implementation of BotCore." }
+    },
+    "Zip url": {
+      "type": "string",
+      "defaultValue": "",
+	  "metadata": { "description": "Please enter the zip url" }
+    },
+    "Proactive zip url": {
+      "type": "string",
+		"metadata": { "description": "Please enter the Proactive zip url" }
     },
     "Endpoint": {
       "type": "string",
-      "defaultValue": ""
+      "metadata": { "description": "Please enter the BotCore end point. eg: https://{webapp name}.azurewebsites.net/api/messages" },
+    },
+    "LUIS api- Location": {
+      "type": "string",
+      "allowedValues": [
+        "East Australia",
+        "West Europe",
+		    "West US"
+      ],
+	  "metadata": { "description": "Please choose location for LUIS api." }
+    },
+    "Bot file- Encryption key": {
+      "type": "string",
+      "defaultValue": "",
+	  "metadata": { "description": "Please enter a security key to encrypt the bot files." }
     },
     "Cognitive service- Name": {
       "type": "string",
-      "metadata": { "description": "Please enter the preferred name for cognitive service." }
+      "metadata": { "description": "Enter the preferred name for cognitive service." }
     },
     "Cognitive service- Location": {
       "type": "string",
 		"allowedValues": [
-       "Australia East",
-	   "Brazil South",
-	   "East Asia",
-		"North Europe",
-	   "Southest Asia",
-	   "West Europe",
-	   "West US",
-	    "West US2"
+		  "West US",
+			"West US 2",
+			"West Europe",
+			"North Europe",
+			"Australia East",
+			"Brazil South",
+			"Southeast Asia",
+			"East Asia"
       ],
-      "metadata": { "description": "Please enter the preferred location for cognitive services." }
+      "metadata": { "description": "Choose the preferred location for cognitive services." }
     },
     "Cognitive service- Type": {
       "type": "string",
       "allowedValues": [
-        "LUIS",
-        "Bing.Speech"
+        "LUIS"
       ],
-      "metadata": { "description": "Please enter the type of cognitive service" }
+      "defaultValue": "LUIS",
+      "metadata": { "description": "Choose the type of cognitive service" }
     },
     "Cognitive service- Sku": {
       "type": "string",
+      "allowedValues": [
+        "F0",
+        "S0"
+      ],
       "metadata": { "description": "Describes the pricing tier and capacity of the service." }
     },
     "Resource group- Name": {
@@ -106,19 +138,46 @@
     },
     "Function app- Name": {
       "type": "string",
-      "metadata": { "description": "Enter the name of the funtion app." }
+      "metadata": { "description": "Please enter the name of the funtion app." }
     },
     "Storage account- Name": {
       "type": "string",
-      "metadata": { "description": "Enter the name of the storage account." }
+      "metadata": { "description": "Please enter the name of the storage account." }
     },
     "Function app- Location": {
       "type": "string",
-      "metadata": { "description": "Enter the prefered location of the function app." }
+      "allowedValues": [
+        "Australia East",
+        "Australia Southeast",
+        "Brazil South",
+        "Canada Central",
+        "Canada East",
+        "Central India",
+        "Central US",
+        "East Asia",
+        "East US",
+        "East US 2",
+        "France Central",
+        "Japan East",
+        "Japan West",
+        "North Central US",
+        "North Europe",
+        "South Central US",
+        "South India",
+        "Southeast Asia",
+        "UK South",
+        "UK West",
+        "West Central US",
+        "West Europe",
+        "West India",
+        "West US",
+        "West US 2"
+      ],
+      "metadata": { "description": "Please enter the prefered location of the function app." }
     },
     "Subscription id": {
       "type": "string",
-      "metadata": { "description": "Enter the subscription id of the resource group." }
+      "metadata": { "description": "Please enter the subscription id of the resource group. Copy and paste Subscription id from the right most corner of the resource group page." }
     }
   },
   "variables": {
@@ -173,9 +232,22 @@
   },
   "resources": [
     {
+      "name": "[if(equals('', variables('luisApiName')), 'nosuch', variables('luisApiName'))]",
+      "apiVersion": "2017-04-18",
+      "condition": "[not(equals(variables('luisApiName'), ''))]",
+      "type": "Microsoft.CognitiveServices/accounts",
+      "location": "[parameters('LUIS api- Location')]",
+      "sku": {
+        "name": "F0"
+      },
+      "kind": "LUIS",
+      "properties": {}
+    },
+    {
       "name": "[parameters('Web App- Name')]",
       "type": "Microsoft.Web/sites",
       "apiVersion": "2015-08-01",
+      "condition": "[not(equals(parameters('Zip url'), ''))]",
       "location": "[parameters('location')]",
       "kind": "[variables('botAppKind')]",
       "properties": {
@@ -185,6 +257,10 @@
             {
               "name": "botFilePath",
               "value": "[concat('./', parameters('Bot- Id'), '.bot')]"
+            },
+            {
+              "name": "botFileSecret",
+              "value": "[parameters('Bot file- Encryption key')]"
             }
           ],
           "cors": {
@@ -194,11 +270,31 @@
             ]
           }
         }
-      }
+      },
+      "resources": [
+        {
+          "name": "MSDeploy",
+          "type": "Extensions",
+          "apiVersion": "2015-02-01",
+          "condition": "[not(equals(parameters('Zip url'), ''))]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', parameters('Web App- Name'))]"
+          ],
+          "properties": {
+            "packageUri": "[parameters('Zip url')]",
+            "dbType": "None",
+            "connectionString": "",
+            "setParameters": {
+              "IIS Web Application Name": "[parameters('Web App- Name')]"
+            }
+          }
+        }
+      ]
     },
     {
       "apiVersion": "2016-03-01",
       "type": "Microsoft.Web/sites",
+      "condition": "[not(equals(parameters('Proactive zip url'), ''))]",
       "name": "[variables('proactiveFunctionName')]",
       "location": "[parameters('location')]",
       "kind": "functionapp",
@@ -219,7 +315,21 @@
             }
           ]
         }
-      }
+      },
+      "resources": [
+        {
+          "name": "MSDeploy",
+          "type": "Extensions",
+          "apiVersion": "2015-02-01",
+          "condition": "[not(equals(parameters('Proactive zip url'), ''))]",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', variables('proactiveFunctionName'))]"
+          ],
+          "properties": {
+            "packageUri": "[parameters('Proactive zip url')]"
+          }
+        }
+      ]
     },
     {
       "apiVersion": "2017-12-01",
@@ -242,10 +352,12 @@
           "BotEnv": "[parameters('Environment')]",
           "BotId": "[parameters('Bot- Id')]",
           "MicrosoftAppId": "[parameters('App id')]",
+          "MicrosoftAppPassword": "[parameters('App secret')]",
           "BotStateEndpoint": "[variables('currentConfig').stateEndpoint]",
           "BotOpenIdMetadata": "[variables('currentConfig').openIdMetadata]",
           "UseTableStorageForConversationState": "true",
           "botFilePath": "[concat('./', parameters('Bot- Id'), '.bot')]",
+          "botFileSecret": "[parameters('Bot file- Encryption key')]",
           "LuisAPIKey": "374ee135421e45db8420cbec05e02bd9",
           "LuisAppId": "dab3bae8-e0f4-4ce2-ae5e-48acc5962edd",
           "LuisAPIHostName": "westus.api.cognitive.microsoft.com"
