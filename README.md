@@ -1,4 +1,4 @@
-# Provision Cognitive service and Function app
+# Provisions Cognitive service and Function app
 ARM template for BotService 
 Template to provision Function app& Cognitive services for Botcore deployment.
 
