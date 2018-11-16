@@ -67,10 +67,6 @@
       "defaultValue": "ACU-BOT-ABS-DEV",
       "metadata": { "description": "Please enter the name of BotCore runtime web app you have already created" }
     },
-    "App ID": {
-      "type": "string",
-      "metadata": { "description": "Enter a valid GUID as App ID for Azure Bot service" }
-    },
     "App Secret": {
       "type": "string",
       "metadata": { "description": "Please enter an App Secret for the Azure Bot Service" }
@@ -195,6 +191,9 @@
     }
   },
   "variables": {
+    "guidForBot": {
+      "value": "[guid(subscription().subscriptionId, resourceGroup().id, parameters('Web App Name'),parameters('Storage Account Name'),parameters('BotCore Runtime Endpoint'))]"
+    }
     "myWorkerSize": 0,
     "proactiveFunctionName": "[concat(parameters('Web App Name'), '-function')]",
     "insightsName": "[concat(parameters('Bot ID'), substring(uniqueString(resourceGroup().id), 0, 6))]",
@@ -358,14 +357,14 @@
         "name": "[parameters('Bot ID')]",
         "displayName": "[parameters('Bot ID')]",
         "endpoint": "[variables('botEndpoint')]",
-        "msaAppId": "[parameters('App ID')]",
+        "msaAppId": "[variables('guidForBot')]",
         "publishingCredentials": "[list(concat(resourceId('Microsoft.Web/Sites', parameters('Web App Name')), '/config/publishingcredentials'), '2018-02-01')]",
         "parameters": "[union(deployment().properties.parameters, json(concat('{\"tenant\":{\"value\":\"', subscription().tenantId, '\"}}')), json(concat('{\"stateStorage\":{\"value\":\"DefaultEndpointsProtocol=https;AccountName=',';\"}}')))]",
         "allSettings": {
           "WEBSITE_NODE_DEFAULT_VERSION": "8.9.4",
           "BotEnv": "[parameters('Environment')]",
           "BotId": "[parameters('Bot ID')]",
-          "MicrosoftAppId": "[parameters('App ID')]",
+          "MicrosoftAppId": "[variables('guidForBot')]",
           "MicrosoftAppPassword": "[parameters('App Secret')]",
           "BotStateEndpoint": "[variables('currentConfig').stateEndpoint]",
           "BotOpenIdMetadata": "[variables('currentConfig').openIdMetadata]",
@@ -446,5 +445,8 @@
         }
       }
     }
-  ]
+  ],
+  "output": {
+   
+  }
 }
