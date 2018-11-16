@@ -5,12 +5,12 @@
     "Environment": {
       "type": "string",
       "defaultValue": "prod",
-      "metadata": {"description": "Please enter the environment of the bot"}
+      "metadata": { "description": "Please keep this setting as prod" }
     },
-    "Bot- Id": {
+    "Bot ID": {
       "type": "string",
       "defaultValue": "ACU-BOT-ABS-DEV",
-      "metadata": { "description": "Please enter the preferred id for the bot" }
+      "metadata": { "description": "Please enter the Bot ID" }
     },
     "Location": {
       "type": "string",
@@ -45,13 +45,13 @@
         "France South",
         "France Central"
       ],
-      "metadata": { "description": "Choose the preferred location for BotCore deployment" }
+      "metadata": { "description": "Choose the preferred location for the Azure Bot Service" }
     },
     "SKU": {
       "type": "string",
       "allowedValues": [ "F0", "S1" ],
       "defaultValue": "S1",
-      "metadata": { "description": "Select the type of the BotCore service" }
+      "metadata": { "description": "Select the plan for Azure Bot Service" }
     },
     "Kind": {
       "type": "string",
@@ -60,99 +60,98 @@
         "bot"
       ],
       "defaultValue": "sdk",
-      "metadata": { "description": "Select the SKU kind of BotCore" }
+      "metadata": { "description": "Please keep this setting as sdk" }
     },
-    "Web App- Name": {
+    "Web App Name": {
       "type": "string",
-      "metadata": { "description": "Please enter the name of BotCore runtime web app." }
+      "defaultValue": "ACU-BOT-ABS-DEV",
+      "metadata": { "description": "Please enter the name of BotCore runtime web app you have already created" }
     },
-    "App id": {
+    "App ID": {
       "type": "string",
-      "defaultValue":"1234",
-      "metadata": { "description": "Enter a valid GUID as App id for BotCore service." }
+      "metadata": { "description": "Enter a valid GUID as App ID for Azure Bot service" }
     },
-    "App secret": {
+    "App Secret": {
       "type": "string",
-      "defaultValue": "",
-      "metadata": { "description": "Please enter an App secret for security implementation of BotCore." }
+      "metadata": { "description": "Please enter an App Secret for the Azure Bot Service" }
     },
     "Zip url": {
       "type": "string",
       "defaultValue": "",
-	  "metadata": { "description": "Please enter the zip url" }
+      "metadata": { "description": "Leave as blank" }
     },
     "Proactive zip url": {
       "type": "string",
       "defaultValue": "",
-      "metadata": { "description": "Please enter the Proactive zip url" }
+      "metadata": { "description": "Leave as blank" }
     },
-    "Endpoint": {
-      "type": "string",
-      "metadata": { "description": "Please enter the BotCore end point. eg: https://{webapp name}.azurewebsites.net/api/messages" },
-    },
-    "LUIS api- Location": {
-      "type": "string",
-      "allowedValues": [
-        "East Australia",
-        "West Europe",
-		    "West US"
-      ],
-	  "metadata": { "description": "Please choose location for LUIS api." }
-    },
-    "Bot file- Encryption key": {
+    "Bot Encryption key": {
       "type": "string",
       "defaultValue": "",
-	  "metadata": { "description": "Please enter a security key to encrypt the bot files." }
+      "metadata": { "description": "Leave as blank" }
     },
-    "Cognitive service- Name": {
+    "BotCore Runtime Endpoint": {
+      "type": "string",
+      "defaultValue": "https://ACU-BOT-ABS-DEV.azurewebsites.net/api/messages",
+      "metadata": { "description": "Please enter the BotCore runtime message end point URL" }
+    },
+    "Cognitive service Name": {
       "type": "string",
       "defaultValue": "ACU-BOT-CS-DEV",
       "metadata": { "description": "Enter the preferred name for cognitive service." }
     },
-    "Cognitive service- Location": {
+    "Cognitive Service Location for Bot Service": {
       "type": "string",
-		"allowedValues": [
-		  "West US",
-			"West US 2",
-			"West Europe",
-			"North Europe",
-			"Australia East",
-			"Brazil South",
-			"Southeast Asia",
-			"East Asia"
+      "allowedValues": [
+        "East Australia",
+        "West Europe",
+        "West US"
       ],
-      "metadata": { "description": "Choose the preferred location for cognitive services." }
+      "defaultValue": "West US",
+      "metadata": { "description": "Enter the preferred name for LUIS Cognitive service" }
     },
-    "Cognitive service- Type": {
+    "Cognitive service Location": {
+      "type": "string",
+      "allowedValues": [
+        "West US",
+        "West US 2",
+        "West Europe",
+        "North Europe",
+        "Australia East",
+        "Brazil South",
+        "Southeast Asia",
+        "East Asia"
+      ],
+      "metadata": { "description": "Please choose location for LUIS" }
+    },
+    "Cognitive Service Type": {
       "type": "string",
       "allowedValues": [
         "LUIS"
       ],
       "defaultValue": "LUIS",
-      "metadata": { "description": "Choose the type of cognitive service" }
+      "metadata": { "description": "Leave as LUIS" }
     },
-    "Cognitive service- Sku": {
+    "Cognitive service SKU": {
       "type": "string",
       "allowedValues": [
         "F0",
         "S0"
       ],
-      "metadata": { "description": "Describes the pricing tier and capacity of the service." }
+      "defaultValue": "S0",
+      "metadata": { "description": "Please choose SKU for LUIS" }
     },
-    "Resource group- Name": {
+    "Resource Group Name": {
       "type": "string",
+      "defaultValue": "ACU-BOT-RG-DEV",
       "metadata": { "description": "Please re- enter the name of resource group here." }
     },
-    "Function app- Name": {
+    "Function App": {
       "type": "string",
       "defaultValue": "ACU-BOT-AFA-DEV",
-      "metadata": { "description": "Please enter the name of the funtion app." }
+      "metadata": { "description": "Please enter the name of the funtion app for BotCore actions" }
     },
-    "Storage account- Name": {
-      "type": "string",
-      "metadata": { "description": "Please enter the name of the storage account." }
-    },
-    "Function app- Location": {
+    "Function app Location": {
       "type": "string",
       "allowedValues": [
         "Australia East",
@@ -181,17 +180,22 @@
         "West US",
         "West US 2"
       ],
-      "metadata": { "description": "Please enter the prefered location of the function app." }
+      "metadata": { "description": "Please choose the prefered location of the function app." }
     },
-    "Subscription id": {
+    "Storage Account Name": {
       "type": "string",
-      "metadata": { "description": "Please enter the subscription id of the resource group. Copy and paste Subscription id from the right most corner of the resource group page." }
+      "defaultValue": "acubotstoragedev",
+      "metadata": { "description": "Please enter the name of the storage account you have already created" }
+    },  
+    "Subscription ID": {
+      "type": "string",
+      "metadata": { "description": "Please enter the subscription id of the resource group" }
     }
   },
   "variables": {
     "myWorkerSize": 0,
-    "proactiveFunctionName": "[concat(parameters('Web App- Name'), '-function')]",
-    "insightsName": "[concat(parameters('Bot- Id'), substring(uniqueString(resourceGroup().id), 0, 6))]",
+    "proactiveFunctionName": "[concat(parameters('Web App Name'), '-function')]",
+    "insightsName": "[concat(parameters('Bot ID'), substring(uniqueString(resourceGroup().id), 0, 6))]",
     "config": {
       "scratch": {
         "stateEndpoint": "https://intercom-api-scratch.azurewebsites.net",
@@ -225,11 +229,11 @@
       "designer": "app",
       "bot": ""
     },
-    "botAppKind": "[variables('botAppKinds')[parameters('kind')]]",
+    "botAppKind": "[variables('botAppKinds')[parameters('Kind')]]",
     "currentConfig": "[variables('config')[toLower(parameters('Environment'))]]",
-    "siteHost": "[concat(parameters('Web App- Name'), '.azurewebsites.net')]",
+    "siteHost": "[concat(parameters('Web App Name'), '.azurewebsites.net')]",
     "botEndpointConfig": {
-      "bot": "[parameters('endpoint')]",
+      "bot": "[parameters('BotCore Runtime Endpoint')]",
       "sdk": "[concat('https://', variables('siteHost'), '/api/messages')]",
       "designer": "[concat('https://', variables('siteHost'), '/api/messages')]",
       "function": "[concat('https://', variables('siteHost'), '/api/messages?code=', 'NYI')]"
@@ -244,7 +248,7 @@
       "apiVersion": "2017-04-18",
       "condition": "[not(equals(variables('luisApiName'), ''))]",
       "type": "Microsoft.CognitiveServices/accounts",
-      "location": "[parameters('LUIS api- Location')]",
+      "location": "[parameters('Cognitive Service Location for Bot Service')]",
       "sku": {
         "name": "F0"
       },
@@ -252,23 +256,23 @@
       "properties": {}
     },
     {
-      "name": "[parameters('Web App- Name')]",
+      "name": "[parameters('Web App Name')]",
       "type": "Microsoft.Web/sites",
       "apiVersion": "2015-08-01",
       "condition": "[not(equals(parameters('Zip url'), ''))]",
-      "location": "[parameters('location')]",
+      "location": "[parameters('Location')]",
       "kind": "[variables('botAppKind')]",
       "properties": {
-        "name": "[parameters('Web App- Name')]",
+        "name": "[parameters('Web App Name')]",
         "siteConfig": {
           "appSettings": [
             {
               "name": "botFilePath",
-              "value": "[concat('./', parameters('Bot- Id'), '.bot')]"
+              "value": "[concat('./', parameters('Bot ID'), '.bot')]"
             },
             {
               "name": "botFileSecret",
-              "value": "[parameters('Bot file- Encryption key')]"
+              "value": "[parameters('Bot Encryption key')]"
             }
           ],
           "cors": {
@@ -286,14 +290,14 @@
           "apiVersion": "2015-02-01",
           "condition": "[not(equals(parameters('Zip url'), ''))]",
           "dependsOn": [
-            "[concat('Microsoft.Web/Sites/', parameters('Web App- Name'))]"
+            "[concat('Microsoft.Web/Sites/', parameters('Web App Name'))]"
           ],
           "properties": {
             "packageUri": "[parameters('Zip url')]",
             "dbType": "None",
             "connectionString": "",
             "setParameters": {
-              "IIS Web Application Name": "[parameters('Web App- Name')]"
+              "IIS Web Application Name": "[parameters('Web App Name')]"
             }
           }
         }
@@ -342,57 +346,57 @@
     {
       "apiVersion": "2017-12-01",
       "type": "Microsoft.BotService/botServices",
-      "name": "[parameters('Bot- Id')]",
+      "name": "[parameters('Bot ID')]",
       "location": "global",
-      "kind": "[parameters('kind')]",
+      "kind": "[parameters('Kind')]",
       "sku": {
-        "name": "[parameters('sku')]"
+        "name": "[parameters('SKU')]"
       },
       "properties": {
-        "name": "[parameters('Bot- Id')]",
-        "displayName": "[parameters('Bot- Id')]",
+        "name": "[parameters('Bot ID')]",
+        "displayName": "[parameters('Bot ID')]",
         "endpoint": "[variables('botEndpoint')]",
-        "msaAppId": "[parameters('App id')]",
-        "publishingCredentials": "[list(concat(resourceId('Microsoft.Web/Sites', parameters('Web App- Name')), '/config/publishingcredentials'), '2018-02-01')]",
+        "msaAppId": "[parameters('App ID')]",
+        "publishingCredentials": "[list(concat(resourceId('Microsoft.Web/Sites', parameters('Web App Name')), '/config/publishingcredentials'), '2018-02-01')]",
         "parameters": "[union(deployment().properties.parameters, json(concat('{\"tenant\":{\"value\":\"', subscription().tenantId, '\"}}')), json(concat('{\"stateStorage\":{\"value\":\"DefaultEndpointsProtocol=https;AccountName=',';\"}}')))]",
         "allSettings": {
           "WEBSITE_NODE_DEFAULT_VERSION": "8.9.4",
           "BotEnv": "[parameters('Environment')]",
-          "BotId": "[parameters('Bot- Id')]",
-          "MicrosoftAppId": "[parameters('App id')]",
-          "MicrosoftAppPassword": "[parameters('App secret')]",
+          "BotId": "[parameters('Bot ID')]",
+          "MicrosoftAppId": "[parameters('App ID')]",
+          "MicrosoftAppPassword": "[parameters('App Secret')]",
           "BotStateEndpoint": "[variables('currentConfig').stateEndpoint]",
           "BotOpenIdMetadata": "[variables('currentConfig').openIdMetadata]",
           "UseTableStorageForConversationState": "true",
-          "botFilePath": "[concat('./', parameters('Bot- Id'), '.bot')]",
-          "botFileSecret": "[parameters('Bot file- Encryption key')]",
+          "botFilePath": "[concat('./', parameters('Bot ID'), '.bot')]",
+          "botFileSecret": "[parameters('Bot Encryption key')]",
           "LuisAPIKey": "374ee135421e45db8420cbec05e02bd9",
           "LuisAppId": "dab3bae8-e0f4-4ce2-ae5e-48acc5962edd",
           "LuisAPIHostName": "westus.api.cognitive.microsoft.com"
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/', parameters('Web App- Name'))]",
+        "[resourceId('Microsoft.Web/sites/', parameters('Web App Name'))]",
         "MSDeploy"
       ]
     },
     {
       "apiVersion": "2017-04-18",
-      "name": "[parameters('Cognitive service- Name')]",
-      "location": "[parameters('Cognitive service- Location')]",
+      "name": "[parameters('Cognitive service Name')]",
+      "location": "[parameters('Cognitive Service Location for Bot Service')]",
       "type": "Microsoft.CognitiveServices/accounts",
-      "kind": "[parameters('Cognitive service- Type')]",
+      "kind": "[parameters('Cognitive Service Type')]",
       "sku": {
-        "name": "[parameters('Cognitive service- Sku')]"
+        "name": "[parameters('Cognitive service SKU')]"
       },
       "properties": {}
     },
     {
       "apiVersion": "2016-03-01",
-      "name": "[parameters('Function app- Name')]",
+      "name": "[parameters('Function App')]",
       "type": "Microsoft.Web/sites",
       "properties": {
-        "name": "[parameters('Function app- Name')]",
+        "name": "[parameters('Function App')]",
         "siteConfig": {
           "appSettings": [
             {
@@ -401,7 +405,7 @@
             },
             {
               "name": "AzureWebJobsStorage",
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage account- Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource group- Name'),'Microsoft.Storage/storageAccounts', parameters('Storage account- Name')), '2015-05-01-preview').key1)]"
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage Account Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource Group Name'),'Microsoft.Storage/storageAccounts', parameters('Storage Account Name')), '2015-05-01-preview').key1)]"
             },
             {
               "name": "FUNCTIONS_EXTENSION_VERSION",
@@ -409,11 +413,11 @@
             },
             {
               "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage account- Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource group- Name'),'Microsoft.Storage/storageAccounts', parameters('Storage account- Name')), '2015-05-01-preview').key1)]"
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('Storage Account Name'),';AccountKey=',listKeys(resourceId(parameters('Subscription id'),parameters('Resource Group Name'),'Microsoft.Storage/storageAccounts', parameters('Storage Account Name')), '2015-05-01-preview').key1)]"
             },
             {
               "name": "WEBSITE_CONTENTSHARE",
-              "value": "[concat(toLower(parameters('Storage account- Name')), '8875')]"
+              "value": "[concat(toLower(parameters('Storage Account Name')), '8875')]"
             },
             {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
@@ -424,7 +428,7 @@
         "clientAffinityEnabled": false,
         "reserved": false
       },
-      "location": "[parameters('Function app- Location')]",
+      "location": "[parameters('Function app Location')]",
       "kind": "functionapp"
     },
     {
