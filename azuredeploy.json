@@ -112,6 +112,7 @@
     },
     "Cognitive service Location": {
       "type": "string",
+      "defaultValue": "West US",
       "allowedValues": [
         "West US",
         "West US 2",
@@ -153,6 +154,7 @@
     },
     "Function app Location": {
       "type": "string",
+      "defaultValue": "West US",
       "allowedValues": [
         "Australia East",
         "Australia Southeast",
